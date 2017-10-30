@@ -543,11 +543,11 @@ function moveTo(page, transition) {
         if (page.substring(0, 8) == "browser:") {
             url = page.substring(8);
             if (device.platform == "Win32NT" && url.substring(0, 4) == "tel:") {
-                window.open(encodeURI(url), '_self');
+                window.open(encodeURI(url), '_self', 'location=no');
             } else if (device.platform == "Win32NT" && url.substring(0, 7) == "mailto:") {
-                window.open(encodeURI(url), '_self');
+                window.open(encodeURI(url), '_self', 'location=no');
             } else {
-                window.open(url, '_system');
+                window.open(url, '_system', 'location=no');
             }
         } else if (page.indexOf("www") != -1 || page.indexOf("http") != -1) {
             window.open(page, "_blank");
