@@ -254,7 +254,7 @@ portal.prototype.authenticateUser = function (callback) {
   if (navigator.onLine) {
     myPIN = "";
     SecureStore.removeItem("PIN");
-    var portalURLExec = window.open(that.API.PortalLogin, "_blank");
+    var portalURLExec = window.open(that.API.PortalLogin, "_blank", "location=no");
     portalURLExec.addEventListener('loadstart', function (event) {
       if (event.url.indexOf("token=") != -1) {
         var tokenId = event.url.split("=")[1].split("&")[0] || event.url.split("=")[2].split("&")[0];
@@ -295,12 +295,12 @@ portal.prototype.portalHome = function (callback) {
 
     if(!isScreenLockEnable){
       that.portalUserSLToken("", myTempToken).done(function (res) {
-        window.open(Portal.API.PortalHome + res.result.shortLiveToken, "_blank");
+        window.open(Portal.API.PortalHome + res.result.shortLiveToken, "_blank", "location=no");
       });
     } else {
     ss.get(
       function (value) {
-        window.open(Portal.API.PortalHome + value, "_blank");
+        window.open(Portal.API.PortalHome + value, "_blank","location=no");
         $.mobile.loading('hide');
       }, function () {
         that.portalUserSLToken(myGUID, "").done(function (res) {
@@ -308,7 +308,7 @@ portal.prototype.portalHome = function (callback) {
           if (res.status) {
             SecureStore.setItem("shortLiveToken", res.result.shortLiveToken);
             localStorage.setItem("timeStampShortLiveToken", new Date().getMinutes())
-            window.open(Portal.API.PortalHome + res.result.shortLiveToken, "_blank");
+            window.open(Portal.API.PortalHome + res.result.shortLiveToken, "_blank", "location=no");
           }
        }).fail(function (err) {
            $.mobile.loading('hide');
@@ -365,7 +365,7 @@ portal.prototype.logoutPortal = function (callback) {
   isPortalAuthorize = false;
   $(".usersignin").show();
   $(".myportal").hide();
-  var logoutWindow = window.open(that.API.PortalLogout, "_blank");
+  var logoutWindow = window.open(that.API.PortalLogout, "_blank", "location=no");
   logoutWindow.addEventListener("loadstop", function () {
     if (callback) {
       callback(true);
